@@ -4,14 +4,14 @@
 
 ![](EventStormingATes.png)
 
-###Auth Domain
+### Auth Domain
 
 |Command|Actor|Data|Event|
 |---|---|---|---|
 |Create Account|User|User Info|AccountCreated|
 |Update Account|User|Auth Info|AccountUpdated|
 
-###Task Manager Domain
+### Task Manager Domain
 
 |Command|Actor|Data|Event|
 |---|---|---|---|
@@ -20,7 +20,7 @@
 |Complete task|Account|Task|TaskCompleted|
 |Bulk ReAssign|Account|???|TaskAssigned|
 
-###Accounting Domain
+### Accounting Domain
 
 |Command|Actor|Data|Event|
 |---|---|---|---|
