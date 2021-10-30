@@ -2,7 +2,7 @@
 
 ## Event Storming
 
-![](EventStorming aTes.png)
+![](EventStormingATes.png)
 
 ###Auth Domain
 
@@ -32,7 +32,7 @@
 
 ## Data model and Domains
 
-![](Model aTEM.png)
+![](ModelATEM.png)
 
 * Shared data marked with shaded squares
   * Task Manager Domain use Account data
@@ -41,7 +41,7 @@
 
 ### Services and interactions
 
-![](Services and interactions.png)
+![](ServicesAndInteractions.png)
 
 |Event Name|Event type|Producer|Consumers
 |---|---|---|---|
