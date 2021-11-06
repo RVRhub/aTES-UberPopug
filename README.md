@@ -1,128 +1,58 @@
 # aTES-UberPopug
 
-## Service diagram
+## Event Storming
 
-![](aTES.png)
+![](EventStormingATes.png)
 
-## Description of services
+### Auth Domain
 
-### UI Service
+|Command|Actor|Data|Event|
+|---|---|---|---|
+|Create Account|User|User Info|AccountCreated|
+|Update Account|User|Auth Info|AccountUpdated|
 
-Сервис ответственный за UI, который позволяет взаимодействовать с пользователем.
+### Task Manager Domain
 
-HTTP transport, будет передаваться данные:
+|Command|Actor|Data|Event|
+|---|---|---|---|
+|Create Task|Account|Task|TaskCreated|
+|Assign task|<TaskCreated> event|Task|TaskAssigned|
+|Complete task|Account|Task|TaskCompleted|
+|Bulk ReAssign|Account|???|TaskAssigned|
 
-- User Credentials (клюв)
-- User Data
-- Task / Task State
-- Report parameters
+### Accounting Domain
 
-Failure:
+|Command|Actor|Data|Event|
+|---|---|---|---|
+|Init invoice|Account|Task + Account|InvoiceCreated|
+|Charge for Assign|<TaskAssigned> event|Task Info + Invoice data|MoneyCharged|
+|Pay for Task|<TaskCompleted> event|Task Info + Invoice data|TaskPaid|
+|Create daily report|Daily job|Invoice data|InvoicePerDayCreated|
+|New day|<InvoicePerDayCreated> event|???|BalanceReseted|
 
-Должен быть максимально легковесным и нагрузки тут никакой нет, кроме как сетевые проблемы.
+## Data model and Domains
 
-### Gateway Service
+![](ModelATEM.png)
 
-Сервис позволяет определить весь API для клиента. Инкапсулирует внутренние сервисы.
+* Shared data marked with shaded squares
+  * Task Manager Domain use Account data
+  * Accounting Domain use Account data/Task Manager data
+  * Audit Domain includes data from all domains and provide read only access
 
-Так же иногда позволяет с агрегировать несколько запросов.
+### Services and interactions
 
-HTTP transport(sync):
+![](ServicesAndInteractions.png)
 
-Перенаправляет данные во внутренние сервисы от клиента(ui service).
-
-Failure:
-
-Базы данных - нет
-
-Могут быть ресурсные проблемы. Варианты решения , скейлинг, RateLimiter.
-
-Если не доступный сервис какой-то, нужно сразу отправлять информацию о том что сейчас операция не доступна.
-
-### **Task Service**
-
-Сервис ответственный за создание задач, отслеживание статуса.
-
-HTTP transport(sync) - inbound:
-
-Запросы на создание задач (description/ assignment cost / ready cost)
-
-Запрос о состоянии задач (state)
-
-Запрос для инициации ассайнмента
-
-Kafka transport inbound(async):
-
-Данный о доступных пользователях
-
-*Возможно нужно ассаймент ивент сделать Asyn и хранить его в очереди*
-
-Failure:
-
-База данных - можно использовать Failure сторедж например в кафка, в случаи недоступности сохранить в временно в кафка. Но думаю лучше отправлять информацию о том что операция не доступна.
-
-Для sync операций отправлять  500 ошибку
-
-Для async что приходит из кафки можно будет переложить в Failure очередь, для повторной обработки
-
-Можно сделать баз из 2-3х кластеров.
-
-### Billing Service
-
-Сервис ответственный за подсчет бюджета основываясь на информации из ТЗ и общих правил. Так же формирует выплаты в конце месяца. Отслеживание статуса выплат/счета каждого сотрудника.
-
-HTTP transport(sync) - inbound:
-
-Таска началась, открыл счет на пользователя (task + user)
-
-Таска окончена, подсчет всего счета
-
-Сколько получил за день
-
-Запрос информации (аудит лог + текущий баланс)
-
-Kafka transport inbound(async):
-
-- Данный о доступных пользователях
-- Данный о задачах
-
-Failure:
-
-Смотри Task Service
-
-### Analytics Service
-
-Хранит всю информацию в Elasticsearch, который позволяет построить отчет любого типа. (например в Kibana можно все отображать)
-
-HTTP transport(sync) - inbound:
-
-Запрос на получения отчета за какой то период (количество заработанных топ-менеджментом за сегодня денег + статистика по дням)
-
-Kafka transport inbound(async):
-
-- Данный о доступных пользователях
-- Данный о задачах
-- Данный о биллинге
-
-Failure:
-
-Смотри Task Service
-
-### Notification Service
-
-Реализован по паттерну Pub/Sub, делает рассылку во внешние системы информации о статусах, о новых задачах.
-
-Ответственный за задачу:
-
-отправлять на почту сумму выплаты(дневную).
-
-отправить информацию о выплате (в конце месяца)
-
-Kafka transport inbound(async):
-
-- Данный о задачах
-- Данный о биллинге
-
-### Kafka
-
-Используется для асинхронной коммуникации внутри системы.
+|Event Name|Event type|Producer|Consumers
+|---|---|---|---|
+|LoggedIn, AccountCreated, AccountUpdated|CUD Event|Auth Service|Accounting Service, Audit Service, TaskManager Service|
+|LoggedIn|CUD Event|TaskManager Service|Audit Service|
+|TaskCreated|Business Event, CUD Event|TaskManager Service|Accounting Service, Audit Service|
+|TaskAssigned|Business Event, CUD Event|TaskManager Service|Accounting Service, Audit Service|
+|TaskCompleted|CUD Event|TaskManager Service|Accounting Service, Audit Service|
+|LoggedIn|CUD Event|Accounting Serivce|Audit Service|
+|InvoiceCreated|CUD Event|Accounting Serivce|Audit Service|
+|MoneyCharged|CUD Event|Accounting Serivce|Audit Service|
+|MoneyPaid|CUD Event|Accounting Serivce|Audit Service|
+|InvoicePerDayCreated|Business Event, CUD Event|Accounting Serivce|Accounting Service, Audit Service|
+|BalanceReseted|Business Event|Accounting Service|Accounting Service, Audit Service|
