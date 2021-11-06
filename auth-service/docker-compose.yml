@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  oauth2-db:
+    image: postgres:11.3-alpine
+    restart: always
+    ports:
+      - 5687:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: iamgroot
+      POSTGRES_DB: auth-db
+    container_name: auth-db

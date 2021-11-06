@@ -1,0 +1,34 @@
+server:
+  port: 8088
+
+spring:
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: iamgroot
+    url: jdbc:postgresql://localhost:5687/auth-db
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    open-in-view: false
+    properties:
+      hibernate:
+        generate_statistics: false
+        order_updates: true
+        order_inserts: true
+    show-sql: false
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
+logging:
+  level:
+    org.springframework: debug
+    com.auth.service: warn
+    com.zaxxer.hikari: warn
+    org.hibernate: warn
+    org.apache: warn
+
