@@ -1,0 +1,65 @@
+##Security parameter##
+servlet:
+  session:
+    cookie:
+      name: UISESSION
+
+spring:
+  thymeleaf:
+    cache: false
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          custom-client:
+#            client-id: R2dpxQ3vPrtfgF72
+#            client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+#            client-name: Auth Server
+#            scope: read,write
+#            provider: custom-provider
+#            redirect-uri: http://localhost:9000/login/oauth2/code/
+#            client-authentication-method: basic
+#            authorization-grant-type: authorization_code
+#        provider:
+#          custom-provider:
+#            token-uri: http://localhost:8088/api/login
+#            authorization-uri: http://localhost:8088/oauth/authorize
+#            user-info-uri: http://localhost:8088/api/accounts
+#            user-name-attribute: email
+  application:
+    name: task-manager-service
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: iamgroot
+    url: jdbc:postgresql://localhost:5432/task-db
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    open-in-view: false
+    properties:
+      hibernate:
+        generate_statistics: false
+        order_updates: true
+        order_inserts: true
+    show-sql: false
+
+server:
+  port: 9000
+  error:
+    whitelabel:
+      enabled: true
+  servlet:
+    session:
+      cookie:
+        name: UISESSION
+
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.cloud.netflix: DEBUG
+    uberpopug.taskmanagerservice: TRACE
+    org.springframework.data.elasticsearch: DEBUG

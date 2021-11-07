@@ -1,9 +1,24 @@
 server:
-  port: 8088
+  port: 8090
+
+auth-service:
+  oauth:
+    clientId: R2dpxQ3vPrtfgF72
+    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+    redirectUris: http://localhost:9000/login/oauth2/code/
 
 spring:
+  security:
+    oauth2:
+      resource:
+        filter-order: 3
   profiles:
     active: local
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   datasource:
     driver-class-name: org.postgresql.Driver
     username: root

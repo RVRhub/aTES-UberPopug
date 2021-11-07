@@ -29,12 +29,13 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/api/access/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/access/**").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/accounts").permitAll()
-            .anyRequest().authenticated();
+        http.requestMatchers()
+                .antMatchers("/login", "/oauth/authorize", "/oauth/token", "/login**","/callback/", "/webjars/**", "/error**", "/oauth2/authorization/**")
+                .and()
+                .csrf().disable()
+                .antMatcher("/**").authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/api/accounts").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Override

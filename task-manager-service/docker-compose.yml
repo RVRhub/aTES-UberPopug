@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  task-db:
+    image: postgres:11.3-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: iamgroot
+      POSTGRES_DB: task-db
+    container_name: task-db

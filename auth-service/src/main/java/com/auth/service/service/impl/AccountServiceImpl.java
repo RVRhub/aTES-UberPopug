@@ -2,7 +2,9 @@ package com.auth.service.service.impl;
 
 import com.auth.service.dto.AccountDetailsDto;
 import com.auth.service.dto.PersonalDetails;
+import com.auth.service.dto.request.AccountDto;
 import com.auth.service.dto.request.UpdateAccountRequest;
+import com.auth.service.events.AccountStreamProducer;
 import com.auth.service.exception.BadRequestException;
 import com.auth.service.model.AccountEntity;
 import com.auth.service.service.AccountDBService;
@@ -18,8 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
+    private final AccountStreamProducer accountStreamProducer;
     private final AccountDBService accountDBService;
     private final ModelMapper mapper;
+
+    @Override
+    @Transactional
+    public void createAccount(AccountDto request) {
+        accountDBService.save(request.toAccountEntity());
+        accountStreamProducer.sendAccountCreated(request);
+    }
 
     @Override
     @Transactional(readOnly = true)

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccessRequest {
+public class AccountDto {
 
     @Email
     @NotNull

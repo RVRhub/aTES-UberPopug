@@ -1,6 +1,7 @@
 package com.auth.service.config.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,13 @@ public class Oauth2AuthorizationServerConfig extends AuthorizationServerConfigur
     private final CustomTokenConverter tokenConverter;
     private final CustomTokenEnhancer tokenEnhancer;
 
+    @Value("${auth-service.oauth.clientId}")
+    private String clientID;
+    @Value("${auth-service.oauth.clientSecret}")
+    private String clientSecret;
+    @Value("${auth-service.oauth.redirectUris}")
+    private String redirectURLs;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
         security.tokenKeyAccess("permitAll()")
@@ -39,12 +47,14 @@ public class Oauth2AuthorizationServerConfig extends AuthorizationServerConfigur
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         int tokenValiditySeconds = 60 * 60 * 24 * 30 * 6;
         clients.inMemory()
-            .withClient("client")
-            .scopes("read", "write", "trust")
-            .secret(passwordEncoder.encode("secret"))
-            .authorizedGrantTypes("refresh_token", "password")
+            .withClient(clientID)
+            .scopes("read", "write", "trust", "user_info")
+            .secret(passwordEncoder.encode(clientSecret))
+            .authorizedGrantTypes("authorization_code", "refresh_token", "password")
+
             .accessTokenValiditySeconds(tokenValiditySeconds)
-            .refreshTokenValiditySeconds(tokenValiditySeconds);
+            .refreshTokenValiditySeconds(tokenValiditySeconds)
+                .redirectUris(redirectURLs);
 
     }
 
