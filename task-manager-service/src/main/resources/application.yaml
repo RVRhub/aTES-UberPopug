@@ -28,6 +28,16 @@ spring:
 #            user-name-attribute: email
   application:
     name: task-manager-service
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: uberpopug.taskmanagerservice.events.inbound,com.auth.service.events.outbound
+
   profiles:
     active: local
   datasource:

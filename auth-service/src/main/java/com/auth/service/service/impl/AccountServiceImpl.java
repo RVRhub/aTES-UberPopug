@@ -4,7 +4,7 @@ import com.auth.service.dto.AccountDetailsDto;
 import com.auth.service.dto.PersonalDetails;
 import com.auth.service.dto.request.AccountDto;
 import com.auth.service.dto.request.UpdateAccountRequest;
-import com.auth.service.events.AccountStreamProducer;
+import com.auth.service.events.outbound.AccountStreamProducer;
 import com.auth.service.exception.BadRequestException;
 import com.auth.service.model.AccountEntity;
 import com.auth.service.service.AccountDBService;
@@ -27,8 +27,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public void createAccount(AccountDto request) {
-        accountDBService.save(request.toAccountEntity());
-        accountStreamProducer.sendAccountCreated(request);
+        AccountEntity account = accountDBService.save(request.toAccountEntity());
+        accountStreamProducer.sendAccountCreated(account);
     }
 
     @Override

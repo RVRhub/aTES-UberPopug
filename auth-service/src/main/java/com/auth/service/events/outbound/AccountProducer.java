@@ -1,4 +1,4 @@
-package com.auth.service.events;
+package com.auth.service.events.outbound;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

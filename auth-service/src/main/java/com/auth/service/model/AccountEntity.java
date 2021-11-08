@@ -1,6 +1,7 @@
 package com.auth.service.model;
 
 import com.auth.service.dto.request.UpdateAccountRequest;
+import com.auth.service.events.outbound.AccountStreamEvent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,9 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import java.util.List;
 
 @Data
 @Entity
@@ -45,6 +44,10 @@ public class AccountEntity extends BaseUpdatedEntity {
             updated = true;
         }
         return updated;
+    }
+
+    public AccountStreamEvent toAccountStreamEventDto() {
+        return new AccountStreamEvent(this.getId().toString(), this.getFirstName(), this.getLastName(), this.getEmail(), null);
     }
 
     public enum Role {
