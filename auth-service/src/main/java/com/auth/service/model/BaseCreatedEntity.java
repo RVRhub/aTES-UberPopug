@@ -14,11 +14,11 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseCreatedEntity {
 
-    @Id
-    @GeneratedValue
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID id;
+	@Id
+	@GeneratedValue
+	@Type(type = "org.hibernate.type.UUIDCharType")
+	private UUID id;
 
-    @CreationTimestamp
-    private Instant createdTime;
+	@CreationTimestamp
+	private Instant createdTime;
 }

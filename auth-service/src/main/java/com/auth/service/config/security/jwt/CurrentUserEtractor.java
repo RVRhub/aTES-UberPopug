@@ -9,14 +9,14 @@ import java.util.Map;
 @Component
 public class CurrentUserEtractor {
 
-    private static final String ACCESS_ID = "user_name";
+	private static final String ACCESS_ID = "user_name";
 
-    public CurrentUser extractUserFromToken() {
-        Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails) details;
-        Object decodedDetails = oAuth2AuthenticationDetails.getDecodedDetails();
-        Map map = (Map) decodedDetails;
-        String accessId = (String) map.get(ACCESS_ID);
-        return new CurrentUser(accessId);
-    }
+	public CurrentUser extractUserFromToken() {
+		Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
+		OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails) details;
+		Object decodedDetails = oAuth2AuthenticationDetails.getDecodedDetails();
+		Map map = (Map) decodedDetails;
+		String accessId = (String) map.get(ACCESS_ID);
+		return new CurrentUser(accessId);
+	}
 }

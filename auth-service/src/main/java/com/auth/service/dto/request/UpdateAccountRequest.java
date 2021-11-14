@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 public class UpdateAccountRequest {
 
-    private String email;
-    private String firstName;
-    private String lastName;
+	private String email;
+	private String firstName;
+	private String lastName;
 }

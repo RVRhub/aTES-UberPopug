@@ -1,0 +1,63 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          taskmanagerclient:
+            client-id: R2dpxQ3vPrtfgF72
+            client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+            client-name: taskmanager
+            scope: user_info,read,write
+            redirect-uri: http://localhost:9000/taskmanager/login/oauth2/code/taskmanagerclient
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+            provider: taskmanager-authserver-provider
+        provider:
+          taskmanager-authserver-provider:
+            token-uri: http://localhost:8090/auth/oauth/token
+            authorization-uri: http://localhost:8090/auth/oauth/authorize
+            user-info-uri: http://localhost:8090/auth/userinfo
+            user-name-attribute: username
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: uberpopug.taskmanagerservice.events.inbound,com.auth.service.events.outbound
+
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: iamgroot
+    url: jdbc:postgresql://localhost:5432/task-db
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    open-in-view: false
+    properties:
+      hibernate:
+        generate_statistics: false
+        order_updates: true
+        order_inserts: true
+    show-sql: false
+
+server:
+  port: 9000
+  servlet:
+    context-path: /taskmanager
+    session:
+      cookie:
+        path: /taskmanager
+
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.cloud.netflix: DEBUG
+    uberpopug.taskmanagerservice: TRACE
+    org.springframework.data.elasticsearch: DEBUG

@@ -10,8 +10,8 @@ import java.time.Instant;
 @Data
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = true)
-public class BaseUpdatedEntity  extends BaseCreatedEntity {
+public class BaseUpdatedEntity extends BaseCreatedEntity {
 
-    @UpdateTimestamp
-    private Instant updateTime;
+	@UpdateTimestamp
+	private Instant updateTime;
 }
