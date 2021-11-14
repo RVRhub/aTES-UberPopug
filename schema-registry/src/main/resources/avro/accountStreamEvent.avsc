@@ -1,0 +1,57 @@
+{
+  "namespace": "rvr.uberpopug.schemaregistry",
+  "type": "record",
+  "name": "AccountStreamEvent",
+  "fields": [
+    {
+      "name": "publicId",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "event_id",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "event_name",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "name": "event_version",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "event_time",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ]
+}
