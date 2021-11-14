@@ -1,17 +1,18 @@
 server:
   port: 8090
+  servlet:
+    context-path: /auth
+    session:
+      cookie:
+        path: /auth
 
 auth-service:
   oauth:
     clientId: R2dpxQ3vPrtfgF72
     clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
-    redirectUris: http://localhost:9000/login/oauth2/code/
+    redirectUris: http://localhost:9000/taskmanager/login/oauth2/code/taskmanagerclient
 
 spring:
-  security:
-    oauth2:
-      resource:
-        filter-order: 3
   profiles:
     active: local
   kafka:
@@ -19,6 +20,7 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
   datasource:
     driver-class-name: org.postgresql.Driver
     username: root

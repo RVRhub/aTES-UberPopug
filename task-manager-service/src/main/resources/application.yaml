@@ -1,33 +1,23 @@
-##Security parameter##
-servlet:
-  session:
-    cookie:
-      name: UISESSION
-
 spring:
-  thymeleaf:
-    cache: false
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          custom-client:
-#            client-id: R2dpxQ3vPrtfgF72
-#            client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
-#            client-name: Auth Server
-#            scope: read,write
-#            provider: custom-provider
-#            redirect-uri: http://localhost:9000/login/oauth2/code/
-#            client-authentication-method: basic
-#            authorization-grant-type: authorization_code
-#        provider:
-#          custom-provider:
-#            token-uri: http://localhost:8088/api/login
-#            authorization-uri: http://localhost:8088/oauth/authorize
-#            user-info-uri: http://localhost:8088/api/accounts
-#            user-name-attribute: email
-  application:
-    name: task-manager-service
+  security:
+    oauth2:
+      client:
+        registration:
+          taskmanagerclient:
+            client-id: R2dpxQ3vPrtfgF72
+            client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+            client-name: taskmanager
+            scope: user_info,read,write
+            redirect-uri: http://localhost:9000/taskmanager/login/oauth2/code/taskmanagerclient
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+            provider: taskmanager-authserver-provider
+        provider:
+          taskmanager-authserver-provider:
+            token-uri: http://localhost:8090/auth/oauth/token
+            authorization-uri: http://localhost:8090/auth/oauth/authorize
+            user-info-uri: http://localhost:8090/auth/userinfo
+            user-name-attribute: username
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
@@ -59,13 +49,11 @@ spring:
 
 server:
   port: 9000
-  error:
-    whitelabel:
-      enabled: true
   servlet:
+    context-path: /taskmanager
     session:
       cookie:
-        name: UISESSION
+        path: /taskmanager
 
 logging:
   level:

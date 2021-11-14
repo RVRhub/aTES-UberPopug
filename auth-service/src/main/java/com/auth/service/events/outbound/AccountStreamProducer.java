@@ -2,6 +2,7 @@ package com.auth.service.events.outbound;
 
 import com.auth.service.dto.request.AccountDto;
 import com.auth.service.model.AccountEntity;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

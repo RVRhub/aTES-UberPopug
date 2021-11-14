@@ -1,6 +1,6 @@
 package com.auth.service.events.outbound
 
-data class AccountStreamEvent (
+data class AccountStreamEvent(
     var publicId: String? = null,
     var firstName: String? = null,
     var lastName: String? = null,

@@ -35,9 +35,9 @@
 ![](ModelATEM.png)
 
 * Shared data marked with shaded squares
-  * Task Manager Domain use Account data
-  * Accounting Domain use Account data/Task Manager data
-  * Audit Domain includes data from all domains and provide read only access
+    * Task Manager Domain use Account data
+    * Accounting Domain use Account data/Task Manager data
+    * Audit Domain includes data from all domains and provide read only access
 
 ### Services and interactions
 

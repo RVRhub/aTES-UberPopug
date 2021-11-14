@@ -15,28 +15,28 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AccountDto {
 
-    @Email
-    @NotNull
-    private String email;
+	@Email
+	@NotNull
+	private String email;
 
-    @NotNull
-    private String firstName;
+	@NotNull
+	private String firstName;
 
-    @NotNull
-    private String lastName;
+	@NotNull
+	private String lastName;
 
-    @NotNull
-    @Length(min = 4, max = 9)
-    private String password;
+	@NotNull
+	@Length(min = 4, max = 9)
+	private String password;
 
-    public AccountEntity toAccountEntity(){
-        return AccountEntity.builder()
-                .email(email)
-                .firstName(firstName)
-                .lastName(lastName)
-                .password(password)
-                .role(AccountEntity.Role.DEVELOPER)
-                .build();
-    }
+	public AccountEntity toAccountEntity() {
+		return AccountEntity.builder()
+				.email(email)
+				.firstName(firstName)
+				.lastName(lastName)
+				.password(password)
+				.role(AccountEntity.Role.DEVELOPER)
+				.build();
+	}
 
 }

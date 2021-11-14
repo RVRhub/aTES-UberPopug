@@ -9,5 +9,5 @@ import java.util.List;
 @Value(staticConstructor = "of")
 public class GetAllAccountsResponse {
 
-    List<AccountDto> accounts;
+	List<AccountDto> accounts;
 }

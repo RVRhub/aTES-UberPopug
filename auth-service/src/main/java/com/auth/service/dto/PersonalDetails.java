@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonalDetails {
-    private String firstName;
-    private String lastName;
-    private String email;
+	private String firstName;
+	private String lastName;
+	private String email;
 
 }

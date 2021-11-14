@@ -6,10 +6,10 @@ import com.auth.service.dto.request.UpdateAccountRequest;
 
 public interface AccountService {
 
-    void createAccount(AccountDto request);
+	void createAccount(AccountDto request);
 
-    AccountDetailsDto getAccountInfo(String email);
+	AccountDetailsDto getAccountInfo(String email);
 
-    void updateAccountInfo(UpdateAccountRequest request, String email);
+	void updateAccountInfo(UpdateAccountRequest request, String email);
 }
 

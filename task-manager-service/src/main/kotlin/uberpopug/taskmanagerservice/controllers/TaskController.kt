@@ -13,14 +13,12 @@ import uberpopug.taskmanagerservice.services.TaskService
 class TaskController(private val taskService: TaskService) {
 
     @GetMapping
-    fun getAllTasksByAccount() : List<TaskDto>
-    {
+    fun getAllTasksByAccount(): List<TaskDto> {
         return taskService.getTasksByAccountId()
     }
 
     @PostMapping
-    fun addNewTask(@RequestBody task: TaskDto) : TaskDto
-    {
+    fun addNewTask(@RequestBody task: TaskDto): TaskDto {
         return taskService.addNewTask(task)
     }
 }

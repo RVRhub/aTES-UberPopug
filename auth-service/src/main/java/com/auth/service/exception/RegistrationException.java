@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class RegistrationException extends RuntimeException {
-    public RegistrationException(String s) {
-        super(s);
-    }
+	public RegistrationException(String s) {
+		super(s);
+	}
 }

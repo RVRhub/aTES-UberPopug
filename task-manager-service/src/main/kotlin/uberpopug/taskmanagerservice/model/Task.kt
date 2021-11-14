@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-class Task(val title:String, val description:String, val status:String) {
+class Task(val title: String, val description: String, val status: String) {
     enum class Status {
         CREATED, IN_PROGRESS, COMPLETED
     }
@@ -18,6 +18,6 @@ class Task(val title:String, val description:String, val status:String) {
 
 fun TaskDto.toSource() = Task(
     this.title ?: "",
-    this.description  ?: "",
-    this.status  ?: ""
+    this.description ?: "",
+    this.status ?: ""
 )
