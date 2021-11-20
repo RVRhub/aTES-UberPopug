@@ -1,7 +1,7 @@
 {
-  "namespace": "rvr.uberpopug.schemaregistry.account.v1",
+  "namespace": "rvr.uberpopug.schemaregistry.taskmanager.v1",
   "type": "record",
-  "name": "StreamEvent",
+  "name": "TaskShuffled",
   "fields": [
     {
       "name": "publicId",
@@ -9,22 +9,7 @@
       "avro.java.string": "String"
     },
     {
-      "name": "firstName",
-      "type": "string",
-      "avro.java.string": "String"
-    },
-    {
-      "name": "lastName",
-      "type": "string",
-      "avro.java.string": "String"
-    },
-    {
-      "name": "email",
-      "type": "string",
-      "avro.java.string": "String"
-    },
-    {
-      "name": "role",
+      "name": "account_public_id",
       "type": "string",
       "avro.java.string": "String"
     },
@@ -35,12 +20,6 @@
         "string"
       ],
       "default": null
-    },
-    {
-      "name": "event_name",
-      "type": [
-        "string"
-      ]
     },
     {
       "name": "event_version",

@@ -1,5 +1,11 @@
 package com.auth.service.events.outbound;
 
+import java.util.UUID;
+
+import com.auth.service.model.AccountEntity;
+import rvr.uberpopug.schemaregistry.account.v1.RoleChanged;
+import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -8,14 +14,19 @@ import org.springframework.stereotype.Component;
 public class AccountProducer {
 
 	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
+	private KafkaTemplate<String, RoleChanged> kafkaTemplate;
 
-	public void createAccount(String content) {
-		this.sendMessage("AccountRoleUpdated");
+	public void roleChanged(AccountEntity content) {
+		RoleChanged roleChangedEvent = RoleChanged.newBuilder()
+				.setPublicId(content.toString())
+				.setNewRole(content.getRole().toString())
+				.setEventId(UUID.randomUUID().toString())
+				.build();
+		this.sendMessage(roleChangedEvent);
 	}
 
-	private void sendMessage(String msg) {
-		kafkaTemplate.send("ACCOUNTS", msg);
+	private void sendMessage(RoleChanged event) {
+		kafkaTemplate.send("ACCOUNTS", event);
 	}
 
 }

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import rvr.uberpopug.schemaregistry.AccountStreamEvent;
+import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
 
 import org.springframework.util.StringUtils;
 
@@ -48,14 +48,14 @@ public class AccountEntity extends BaseUpdatedEntity {
 		return updated;
 	}
 
-	public AccountStreamEvent toAccountStreamEventDto(String eventName) {
-		return AccountStreamEvent.newBuilder()
+	public StreamEvent toAccountStreamEventDto(String eventName) {
+		return StreamEvent.newBuilder()
 				.setPublicId(this.getId().toString())
 				.setFirstName(this.firstName)
 				.setLastName(this.lastName)
 				.setEmail(this.email)
+				.setRole(this.role.toString())
 				.setEventId(UUID.randomUUID().toString())
-				.setEventVersion("1")
 				.setEventName(eventName).build();
 	}
 

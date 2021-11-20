@@ -1,7 +1,7 @@
 package com.auth.service.events.outbound;
 
 import com.auth.service.model.AccountEntity;
-import rvr.uberpopug.schemaregistry.AccountStreamEvent;
+import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -13,27 +13,27 @@ import java.util.UUID;
 public class AccountStreamProducer {
 
 	@Autowired
-	private KafkaTemplate<String, AccountStreamEvent> kafkaTemplate;
+	private KafkaTemplate<String, StreamEvent> kafkaTemplate;
 
 	public void sendAccountCreated(AccountEntity content) {
-		AccountStreamEvent accountStreamEvent = content
+		StreamEvent accountStreamEvent = content
 				.toAccountStreamEventDto("AccountCreated");
 		this.sendMessage(content.getId(), accountStreamEvent);
 	}
 
 	public void updateAccount(AccountEntity content) {
-		AccountStreamEvent accountStreamEvent = content
+		StreamEvent accountStreamEvent = content
 				.toAccountStreamEventDto("AccountUpdate");
 		this.sendMessage(content.getId(), accountStreamEvent);
 	}
 
 	public void deleteAccount(AccountEntity content) {
-		AccountStreamEvent accountStreamEvent = content
+		StreamEvent accountStreamEvent = content
 				.toAccountStreamEventDto("AccountDeleted");
 		this.sendMessage(content.getId(), accountStreamEvent);
 	}
 
-	private void sendMessage(UUID key, AccountStreamEvent event) {
+	private void sendMessage(UUID key, StreamEvent event) {
 		kafkaTemplate.send("ACCOUNTS_STREAM", key.toString(), event);
 	}
 
