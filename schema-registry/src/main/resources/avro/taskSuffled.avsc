@@ -1,0 +1,40 @@
+{
+  "namespace": "rvr.uberpopug.schemaregistry.taskmanager.v1",
+  "type": "record",
+  "name": "TaskShuffled",
+  "fields": [
+    {
+      "name": "publicId",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "account_public_id",
+      "type": "string",
+      "avro.java.string": "String"
+    },
+    {
+      "name": "event_id",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "event_version",
+      "type": [
+        "int"
+      ],
+      "default": 1
+    },
+    {
+      "name": "event_time",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ]
+}

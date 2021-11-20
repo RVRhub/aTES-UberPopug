@@ -1,16 +1,17 @@
 package com.auth.service.model;
 
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import com.auth.service.dto.request.UpdateAccountRequest;
-import com.auth.service.events.outbound.AccountStreamEvent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
 
 import org.springframework.util.StringUtils;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
 
 @Data
 @Entity
@@ -47,8 +48,15 @@ public class AccountEntity extends BaseUpdatedEntity {
 		return updated;
 	}
 
-	public AccountStreamEvent toAccountStreamEventDto() {
-		return new AccountStreamEvent(this.getId().toString(), this.getFirstName(), this.getLastName(), this.getEmail(), null);
+	public StreamEvent toAccountStreamEventDto(String eventName) {
+		return StreamEvent.newBuilder()
+				.setPublicId(this.getId().toString())
+				.setFirstName(this.firstName)
+				.setLastName(this.lastName)
+				.setEmail(this.email)
+				.setRole(this.role.toString())
+				.setEventId(UUID.randomUUID().toString())
+				.setEventName(eventName).build();
 	}
 
 	public enum Role {
