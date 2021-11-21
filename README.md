@@ -45,14 +45,25 @@
 
 |Event Name|Event type|Producer|Consumers
 |---|---|---|---|
-|LoggedIn, AccountCreated, AccountUpdated|CUD Event|Auth Service|Accounting Service, Audit Service, TaskManager Service|
-|LoggedIn|CUD Event|TaskManager Service|Audit Service|
-|TaskCreated|Business Event, CUD Event|TaskManager Service|Accounting Service, Audit Service|
-|TaskAssigned|Business Event, CUD Event|TaskManager Service|Accounting Service, Audit Service|
-|TaskCompleted|CUD Event|TaskManager Service|Accounting Service, Audit Service|
-|LoggedIn|CUD Event|Accounting Serivce|Audit Service|
-|InvoiceCreated|CUD Event|Accounting Serivce|Audit Service|
-|MoneyCharged|CUD Event|Accounting Serivce|Audit Service|
-|MoneyPaid|CUD Event|Accounting Serivce|Audit Service|
-|InvoicePerDayCreated|Business Event, CUD Event|Accounting Serivce|Accounting Service, Audit Service|
-|BalanceReseted|Business Event|Accounting Service|Accounting Service, Audit Service|
+|AccountRegistered, RoleChanged|BE Event|Auth Service|Accounting Service, Audit Service, TaskManager Service|
+|AccountCreated|CUD Event|TaskManager Service|Audit Service|
+|TaskCreated|CUD Event|TaskManager Service|Accounting Service, Audit Service|
+|NewTaskAdded|Business Event|TaskManager Service|TaskManager Service|
+|TaskAssigned|Business Event|TaskManager Service|Accounting Service, Audit Service|
+|TaskCompleted|Business Event|TaskManager Service|Accounting Service, Audit Service|
+|TaskShuffled|Business Event|TaskManager Service|TaskManager Service, Audit Service|
+|TransactionReplenishmentApplied|Business Event|Accounting Service|Audit Service|
+|TransactionReserveApplied|Business Event|Accounting Service|Audit Service|
+|BuildCycleClosed|Business Event|Accounting Service|Accounting Service, Audit Service|
+|UserWasNotified|Business Event|Accounting Service|Audit Service|
+|PaymentCompleted|Business Event|Accounting Service|Audit Service|
+
+### UI
+
+Task Manager Service
+
+![](TaskManagerUI.png)
+
+Accounting Service
+
+![](AccountingUI.png)
