@@ -15,6 +15,7 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
+	maven(url = "https://packages.confluent.io/maven/")
 }
 
 dependencies {
@@ -26,6 +27,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
+	implementation("io.confluent:kafka-avro-serializer:5.3.0")
+	implementation("io.confluent:kafka-streams-avro-serde:5.3.0")
+	implementation("io.confluent:kafka-schema-registry-client:5.3.0")
+	implementation("org.apache.avro:avro:1.8.2")
+	implementation(files("../schema-registry/target/uberpopug-schema.jar"))
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.webjars:bootstrap:4.1.0")

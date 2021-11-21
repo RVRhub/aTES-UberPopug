@@ -29,6 +29,9 @@ public class AccountDto {
 	@Length(min = 4, max = 9)
 	private String password;
 
+	@NotNull
+	private String role;
+
 	public AccountEntity toAccountEntity() {
 		return AccountEntity.builder()
 				.email(email)

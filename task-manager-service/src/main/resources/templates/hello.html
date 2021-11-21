@@ -22,7 +22,7 @@
 <nav class="navbar navbar-expand-sm  navbar-light crypt_nav">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Spring Security Demo</a>
+            <a class="navbar-brand" href="#">Task Manager</a>
         </div>
         <ul class="nav navbar-nav">
 
@@ -35,11 +35,52 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Hello </h1>
+        <div class="col-12">
+            <table>
+                <thead>
+                <tr>
+                    <td class="col-2">Public Id</td>
+                    <td class="col-2">Internal Id</td>
+                    <td class="col-2">Title</td>
+                    <td class="col-2">Description</td>
+                    <td class="col-2">Status</td>
+                    <td class="col-2">Account Public Id</td>
+                </tr>
+                </thead>
 
+                <tbody>
+                <th:block th:each="task: ${tasks}">
+                    <tr>
+                        <td class="col-2" th:text="${task.publicId}"/>
+                        <td class="col-2" th:text="${task.taskId}"/>
+                        <td class="col-2" th:text="${task.title}"/>
+                        <td class="col-2" th:text="${task.description}"/>
+                        <td class="col-2" th:text="${task.status}"/>
+                        <td class="col-2" th:text="${task.accountPublicId}"/>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
 
         </div>
+        <div class="col-12">
+            <form action="#" th:action="@{/hello}" th:object="${taskDto}" method="post">
+                <table border="1">
+                    <tr>
+                        <td><label th:text="Title"/></td>
+                        <td><input type="text" th:field="*{title}"/></td>
+                    </tr>
+                    <tr>
+                        <td><label th:text="Description"/></td>
+                        <td><input type="text" th:field="*{description}"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Submit"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
     </div>
 </div>
 
