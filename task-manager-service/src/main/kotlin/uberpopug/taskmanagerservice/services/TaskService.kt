@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 import kotlinx.coroutines.*
 import uberpopug.taskmanagerservice.controllers.dto.TaskDto
 import uberpopug.taskmanagerservice.controllers.dto.toDto
+import uberpopug.taskmanagerservice.events.outbound.TaskLifecycleEventProducer
 import uberpopug.taskmanagerservice.events.outbound.TaskStreamProducer
 import uberpopug.taskmanagerservice.model.Task
 import uberpopug.taskmanagerservice.model.toSource
@@ -14,7 +15,8 @@ import uberpopug.taskmanagerservice.repository.TasksRepository
 @Service
 class TaskService(private val tasksRepository: TasksRepository,
                   private val taskStreamProducer: TaskStreamProducer,
-                  private val taskAssignmentService: TaskAssignmentService
+                  private val taskLifecycleService: TaskAssignmentService,
+                  private val taskLifecycleEventProducer: TaskLifecycleEventProducer
 ) {
     fun getTasksByAccountId(): List<TaskDto> {
         return tasksRepository.findAll().map { task -> task.toDto() }
@@ -23,21 +25,23 @@ class TaskService(private val tasksRepository: TasksRepository,
     fun addNewTask(taskDto: TaskDto): TaskDto {
         logger.info("Add new task {}", taskDto)
         taskDto.status = Task.Status.CREATED.toString()
-        val task = taskDto.toSource()
+        val task = tasksRepository.save(taskDto.toSource())
 
         runBlocking {
-
-            addNewTask(task)
-            taskAssignmentService.assign(task)
+            taskStreamProducer.sendTaskCreated(task)
+            taskLifecycleService.assign(task)
         }
 
         return task.toDto()
     }
 
-    private suspend fun addNewTask(task: Task) {
-        tasksRepository.save(task)
+    fun complete(taskId: Long?) {
+        logger.info("Complete task {}", taskId)
 
-        taskStreamProducer.sendAccountCreated(task)
+        tasksRepository.findById(taskId!!)
+            .ifPresent {
+                taskLifecycleService.complete(it)
+            }
     }
 
     companion object {

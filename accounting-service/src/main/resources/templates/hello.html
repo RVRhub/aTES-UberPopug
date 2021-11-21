@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Accounting</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.0/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/portfolio.css" th:href="@{/css/portfolio.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css" th:href="@{/css/login.css}"/>
+    <script src="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.0/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.3.1/jquery.min.js"
+            th:src="@{/webjars/jquery/jquery.min.js}"></script>
+</head>
+
+
+<body>
+
+<nav class="navbar navbar-expand-sm  navbar-light crypt_nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Accounting</a>
+        </div>
+        <ul class="nav navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2>User Info: </h2>
+        </div>
+        <div class="col-12">
+            <table>
+                <tr>
+                    <td class="col-2">User Id</td>
+                    <td class="col-2" th:text="${userDto.publicId}"/>
+                </tr>
+                <tr>
+                    <td class="col-2">Balance</td>
+                    <td class="col-2" th:text="${userDto.balance}"/>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-12">
+            <h2>Transaction list: </h2>
+        </div>
+        <div class="col-12">
+            <table>
+                <thead>
+                <tr>
+                    <td class="col-2">Transaction Id</td>
+                    <td class="col-2">Description</td>
+                    <td class="col-2">Type</td>
+                    <td class="col-2">Credit</td>
+                    <td class="col-2">Debit</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <th:block th:each="transactionItem: ${transactionItems}">
+                    <tr>
+                        <td class="col-2" th:text="${transactionItem.id}"/>
+                        <td class="col-2" th:text="${transactionItem.description}"/>
+                        <td class="col-2" th:text="${transactionItem.type}"/>
+                        <td class="col-2" th:text="${transactionItem.credit}"/>
+                        <td class="col-2" th:text="${transactionItem.debit}"/>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

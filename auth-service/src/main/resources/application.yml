@@ -8,9 +8,9 @@ server:
 
 auth-service:
   oauth:
-    clientId: R2dpxQ3vPrtfgF72
-    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
-    redirectUris: http://localhost:9000/taskmanager/login/oauth2/code/taskmanagerclient
+    clientId: TaskManager-1, Account-1
+    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9, fDw7Mpkk5czHNuSRtmhGmAGL42Ca21321
+    redirectUris: http://localhost:9000/taskmanager/login/oauth2/code/taskmanagerclient, http://localhost:9090/accounting/login/oauth2/code/accountingclient
 
 spring:
   profiles:

@@ -1,5 +1,7 @@
 package uberpopug.taskmanagerservice.controllers
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -31,11 +33,20 @@ class WebController(private val taskService: TaskService) {
     }
 
     @RequestMapping(value = ["/hello"], method = [RequestMethod.POST])
-    fun saveStudent(@ModelAttribute taskDto: TaskDto?, errors: BindingResult?, model: Model?): String {
+    fun addNewTask(@ModelAttribute taskDto: TaskDto?, errors: BindingResult?, model: Model, @RequestParam action: String?, @RequestParam taskId: Long?): String {
 
-        if (taskDto != null) {
-            taskService.addNewTask(taskDto)
+        if (action.equals("complete")) {
+            taskService.complete(taskId)
+        } else {
+            if (taskDto != null) {
+                taskService.addNewTask(taskDto)
+            }
         }
+
+
+        val tasks = taskService.getTasksByAccountId()
+        model.addAttribute("taskDto", TaskDto())
+        model.addAttribute("tasks", tasks)
 
         return "hello"
     }
@@ -44,5 +55,9 @@ class WebController(private val taskService: TaskService) {
     fun home(model: Model): String? {
 
         return "hello"
+    }
+
+    companion object {
+        var logger: Logger = LoggerFactory.getLogger(WebController::class.java)
     }
 }

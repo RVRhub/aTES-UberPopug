@@ -1,5 +1,5 @@
 {
-  "namespace": "rvr.uberpopug.schemaregistry.account.v1",
+  "namespace": "rvr.uberpopug.schemaregistry.avro.account.v1",
   "type": "record",
   "name": "StreamEvent",
   "fields": [

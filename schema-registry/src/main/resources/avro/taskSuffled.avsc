@@ -1,5 +1,5 @@
 {
-  "namespace": "rvr.uberpopug.schemaregistry.taskmanager.v1",
+  "namespace": "rvr.uberpopug.schemaregistry.avro.taskmanager.v1",
   "type": "record",
   "name": "TaskShuffled",
   "fields": [

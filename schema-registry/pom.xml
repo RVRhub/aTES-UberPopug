@@ -66,7 +66,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>src/main/java/rvr/uberpopug/schemaregistry/</directory>
+                            <directory>src/main/java/rvr/uberpopug/schemaregistry/avro/</directory>
                             <includes>
                                 <include>**/*.java</include>
                             </includes>

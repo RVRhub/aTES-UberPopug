@@ -28,11 +28,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 //    private final CustomTokenEnhancer tokenEnhancer;
 
 	@Value("${auth-service.oauth.clientId}")
-	private String clientID;
+	private String[] clientIds;
 	@Value("${auth-service.oauth.clientSecret}")
-	private String clientSecret;
+	private String[] clientSecrets;
 	@Value("${auth-service.oauth.redirectUris}")
-	private String redirectURLs;
+	private String[] redirectURLs;
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) {
@@ -43,11 +43,18 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-				.withClient(clientID)
+				.withClient(clientIds[0])
 				.authorizedGrantTypes("password", "authorization_code")
-				.secret(encoder().encode(clientSecret))
+				.secret(encoder().encode(clientSecrets[0]))
 				.scopes("user_info", "read", "write")
-				.redirectUris(redirectURLs)
+				.redirectUris(redirectURLs[0])
+				.autoApprove(false)
+				.and()
+				.withClient(clientIds[1])
+				.authorizedGrantTypes("password", "authorization_code")
+				.secret(encoder().encode(clientSecrets[1]))
+				.scopes("user_info", "read", "write")
+				.redirectUris(redirectURLs[1])
 				.autoApprove(false)
 		;
 	}

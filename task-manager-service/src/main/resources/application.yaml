@@ -1,10 +1,14 @@
 spring:
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
   security:
     oauth2:
       client:
         registration:
           taskmanagerclient:
-            client-id: R2dpxQ3vPrtfgF72
+            client-id: TaskManager-1
             client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
             client-name: taskmanager
             scope: user_info,read,write
@@ -24,7 +28,7 @@ spring:
       specific.avro.reader: true
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: group_id
+      group-id: taskManagerGroup
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
