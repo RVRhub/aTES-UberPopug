@@ -1,7 +1,7 @@
 package uberpopug.taskmanagerservice.model
 
 import org.hibernate.annotations.GenericGenerator
-import rvr.uberpopug.schemaregistry.taskmanager.v1.StreamEvent
+import rvr.uberpopug.schemaregistry.avro.taskmanager.v1.StreamEvent
 import uberpopug.taskmanagerservice.controllers.dto.TaskDto
 import java.util.*
 import javax.persistence.Column

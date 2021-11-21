@@ -41,7 +41,7 @@ class Oauth2AuthenticationSuccessHandler : AuthenticationSuccessHandler {
             val lastName = oToken.principal.attributes["family_name"].toString()
             val email = oToken.principal.attributes["email"].toString()
             val user = Account(email, firstName, lastName)
-            accountRepository.save(user)
+//            accountRepository.save(user)
         }
         redirectStrategy.sendRedirect(request, response, "/hello")
     }

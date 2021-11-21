@@ -3,8 +3,8 @@ package com.auth.service.events.outbound;
 import java.util.UUID;
 
 import com.auth.service.model.AccountEntity;
-import rvr.uberpopug.schemaregistry.account.v1.RoleChanged;
-import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
+import rvr.uberpopug.schemaregistry.UberPopugTopics;
+import rvr.uberpopug.schemaregistry.avro.account.v1.RoleChanged;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -26,7 +26,7 @@ public class AccountProducer {
 	}
 
 	private void sendMessage(RoleChanged event) {
-		kafkaTemplate.send("ACCOUNTS", event);
+		kafkaTemplate.send(UberPopugTopics.ACCOUNTS, event);
 	}
 
 }

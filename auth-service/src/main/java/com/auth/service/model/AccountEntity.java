@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
+import rvr.uberpopug.schemaregistry.avro.account.v1.StreamEvent;
 
 import org.springframework.util.StringUtils;
 

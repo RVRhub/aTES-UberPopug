@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8"/>
-    <title>Welcome!!</title>
+    <title>Task Manager</title>
     <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/webjars/bootstrap/4.1.0/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/css/portfolio.css" th:href="@{/css/portfolio.css}"/>
@@ -57,6 +57,11 @@
                         <td class="col-2" th:text="${task.description}"/>
                         <td class="col-2" th:text="${task.status}"/>
                         <td class="col-2" th:text="${task.accountPublicId}"/>
+                        <td class="col-2">
+                            <form action="#" th:action="@{'/hello?action=complete&taskId={id}'(id=${task.taskId})}" th:object="${task}" method="post">
+                                <input type="submit" value="Complete"  th:disabled="${task.status}=='COMPLETED'"/>
+                            </form>
+                        </td>
                     </tr>
                 </th:block>
                 </tbody>

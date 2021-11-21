@@ -29,6 +29,15 @@ class TaskAssignmentService(
         taskLifecycleEventProducer.sendTaskAssigned(task)
     }
 
+    fun complete(task: Task) {
+        if (task.status != Task.Status.COMPLETED.name)
+        {
+            task.status = Task.Status.COMPLETED.name
+            tasksRepository.save(task)
+            taskLifecycleEventProducer.sendTaskCompleted(task)
+        }
+    }
+
     private fun getRandomAccount(): Account {
         // TODO: Find by role
 

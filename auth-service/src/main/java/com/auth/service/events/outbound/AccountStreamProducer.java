@@ -1,7 +1,8 @@
 package com.auth.service.events.outbound;
 
 import com.auth.service.model.AccountEntity;
-import rvr.uberpopug.schemaregistry.account.v1.StreamEvent;
+import rvr.uberpopug.schemaregistry.UberPopugTopics;
+import rvr.uberpopug.schemaregistry.avro.account.v1.StreamEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -34,7 +35,7 @@ public class AccountStreamProducer {
 	}
 
 	private void sendMessage(UUID key, StreamEvent event) {
-		kafkaTemplate.send("ACCOUNTS_STREAM", key.toString(), event);
+		kafkaTemplate.send(UberPopugTopics.ACCOUNTS_STREAM, key.toString(), event);
 	}
 
 }
